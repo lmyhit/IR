@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 2.8.11)
+
+project(qt239)
+
+include_directories ("E:/Program Files/PCL 1.8.1/3rdParty/Boost/include/boost-1_64")
+include_directories ("E:/Program Files/MVTec/HALCON-13.0/include/halconcpp")
+include_directories ("E:/Program Files/MVTec/HALCON-13.0/include")
+
+link_directories    ("E:/Program Files/MVTec/HALCON-13.0/lib/x64-win64" )
+link_directories    ("E:/Program Files/PCL 1.8.1/3rdParty/Boost/lib")
+set  (project_SOURCES src/main.cpp src/IR239.cpp src/serial.cpp src/fhalcon.cpp)
+set  (project_HEADERS src/IR239.h src/serial.h src/ui_IR239.h)
+set  (project_FORMS   src/IR239.ui)
+
+
+# Find the QtWidgets library
+find_package(Qt5Widgets)
+QT5_WRAP_UI(project_UIS IR239.ui)
+
+add_executable  (qt239    WIN32  ${project_SOURCES} ${project_HEADERS}
+									  ${project_FORMS}
+                                      ${project_HEADERS_MOC})
+
+target_link_libraries (qt239 Qt5::Widgets halconcpp halconcppxl  )
